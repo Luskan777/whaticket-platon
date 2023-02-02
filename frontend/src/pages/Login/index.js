@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { ReactComponent as LogoSvg } from "../../assets/logo.svg"
 
 import {
   Avatar,
@@ -45,7 +46,9 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    width: "7rem",
+    marginBottom: "3rem"
+    // backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -77,9 +80,10 @@ const Login = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <LogoSvg className={classes.avatar} />
+        {/* <Avatar className={classes.avatar}>
           <LockOutlined />
-        </Avatar>
+        </Avatar> */}
         <Typography component="h1" variant="h5">
           {i18n.t("login.title")}
         </Typography>
@@ -131,7 +135,7 @@ const Login = () => {
           >
             {i18n.t("login.buttons.submit")}
           </Button>
-          <Grid container>
+          {/* <Grid container>
             <Grid item>
               <Link
                 href="#"
@@ -142,7 +146,7 @@ const Login = () => {
                 {i18n.t("login.buttons.register")}
               </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
         </form>
       </div>
       <Box mt={8}>{/* <Copyright /> */}</Box>
