@@ -27,29 +27,36 @@ type MessageData = {
 
 interface ContactData {
   number: string;
+  isGroup: boolean;
 }
 
 const createContact = async (
   whatsappId: number | undefined,
-  newContact: string
+  newContact: string,
+  IsGroup: boolean
 ) => {
-  await CheckIsValidContact(newContact);
 
-  const validNumber: any = await CheckContactNumber(newContact);
+  let number = newContact
+  let profilePicUrl 
 
-  const profilePicUrl = await GetProfilePicUrl(validNumber);
-
-  const number = validNumber;
+  if(!IsGroup){
+    await CheckIsValidContact(newContact);
+  
+    const validNumber: any = await CheckContactNumber(newContact);
+  
+    profilePicUrl = await GetProfilePicUrl(newContact);
+    number = validNumber
+  }
 
   const contactData = {
     name: `${number}`,
     number,
     profilePicUrl,
-    isGroup: false
+    isGroup: IsGroup
   };
-
+  
   const contact = await CreateOrUpdateContactService(contactData);
-
+  
   let whatsapp:Whatsapp | null;
 
   if(whatsappId === undefined) {
@@ -81,21 +88,23 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
   const { body, quotedMsg }: MessageData = req.body;
   const medias = req.files as Express.Multer.File[];
 
-  newContact.number = newContact.number.replace("-", "").replace(" ", "");
-
-  const schema = Yup.object().shape({
-    number: Yup.string()
-      .required()
-      .matches(/^\d+$/, "Invalid number format. Only numbers is allowed.")
-  });
-
-  try {
-    await schema.validate(newContact);
-  } catch (err: any) {
-    throw new AppError(err.message);
+  if( !newContact.isGroup ){
+    newContact.number = newContact.number.replace("-", "").replace(" ", "");
+  
+    const schema = Yup.object().shape({
+      number: Yup.string()
+        .required()
+        .matches(/^\d+$/, "Invalid number format. Only numbers is allowed.")
+    });
+  
+    try {
+      await schema.validate(newContact);
+    } catch (err: any) {
+      throw new AppError(err.message);
+    }
   }
 
-  const contactAndTicket = await createContact(whatsappId, newContact.number);
+  const contactAndTicket = await createContact(whatsappId, newContact.number, newContact.isGroup );
 
   if (medias) {
     await Promise.all(
