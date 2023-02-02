@@ -98,7 +98,7 @@ const TicketsManager = () => {
   const [tab, setTab] = useState("open");
   const [tabOpen, setTabOpen] = useState("open");
   const [newTicketModalOpen, setNewTicketModalOpen] = useState(false);
-  const [showAllTickets, setShowAllTickets] = useState(false);
+  const [showAllTickets, setShowAllTickets] = useState(true);
   const searchInputRef = useRef();
   const { user } = useContext(AuthContext);
 
