@@ -22,6 +22,7 @@ import { AuthContext } from "../../context/Auth/AuthContext";
 import { Can } from "../Can";
 import TicketsQueueSelect from "../TicketsQueueSelect";
 import { Button } from "@material-ui/core";
+import {useLocalStorage} from "../../hooks/useLocalStorage"
 
 const useStyles = makeStyles((theme) => ({
   ticketsWrapper: {
@@ -98,7 +99,7 @@ const TicketsManager = () => {
   const [tab, setTab] = useState("open");
   const [tabOpen, setTabOpen] = useState("open");
   const [newTicketModalOpen, setNewTicketModalOpen] = useState(false);
-  const [showAllTickets, setShowAllTickets] = useState(true);
+  const [showAllTickets, setShowAllTickets] = useLocalStorage("showAllTickets", false); 
   const searchInputRef = useRef();
   const { user } = useContext(AuthContext);
 
@@ -108,6 +109,7 @@ const TicketsManager = () => {
   const userQueueIds = user.queues.map((q) => q.id);
   const [selectedQueueIds, setSelectedQueueIds] = useState(userQueueIds || []);
 
+  
   useEffect(() => {
     if (user.profile.toUpperCase() === "ADMIN") {
       setShowAllTickets(true);
