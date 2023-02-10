@@ -110,6 +110,7 @@ const useAuth = () => {
 			setIsAuth(false);
 			setUser({});
 			localStorage.removeItem("token");
+			localStorage.removeItem("selectedQueueIds");
 			api.defaults.headers.Authorization = undefined;
 			setLoading(false);
 			history.push("/login");

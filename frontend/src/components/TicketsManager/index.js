@@ -107,10 +107,8 @@ const TicketsManager = () => {
   const [pendingCount, setPendingCount] = useState(0);
 
   const userQueueIds = user.queues.map((q) => q.id);
-  const [selectedQueueIds, setSelectedQueueIds] = useState(userQueueIds || []);
-
+  const [selectedQueueIds, setSelectedQueueIds] = useLocalStorage("selectedQueueIds", userQueueIds || []);
   
-
   useEffect(() => {
     if (tab === "search") {
       searchInputRef.current.focus();
