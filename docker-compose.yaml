@@ -59,7 +59,7 @@ services:
       - TZ=${TZ:-America/Sao_Paulo}
     ports:
       - ${MYSQL_PORT:-3306}:3306
-    restart: always
+    # restart: always
     networks:
       - whaticket
 volumes:
