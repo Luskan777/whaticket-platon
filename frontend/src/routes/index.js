@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import LoggedInLayout from "../layout";
 import Dashboard from "../pages/Dashboard/";
 import Tickets from "../pages/Tickets/";
-import Signup from "../pages/Signup/";
+// import Signup from "../pages/Signup/";
 import Login from "../pages/Login/";
 import Connections from "../pages/Connections/";
 import Settings from "../pages/Settings/";
