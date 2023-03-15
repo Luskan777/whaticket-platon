@@ -6,7 +6,7 @@ networks:
 services:
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin
     environment:
       - PMA_HOSTS=mysql
     ports:
