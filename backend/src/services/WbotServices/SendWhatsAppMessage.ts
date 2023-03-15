@@ -2,7 +2,6 @@ import { Message as WbotMessage } from "whatsapp-web.js";
 import AppError from "../../errors/AppError";
 import GetTicketWbot from "../../helpers/GetTicketWbot";
 import GetWbotMessage from "../../helpers/GetWbotMessage";
-import SerializeWbotMsgId from "../../helpers/SerializeWbotMsgId";
 import Message from "../../models/Message";
 import Ticket from "../../models/Ticket";
 
@@ -21,8 +20,8 @@ const SendWhatsAppMessage = async ({
 }: Request): Promise<WbotMessage> => {
   let quotedMsgSerializedId: string | undefined;
   if (quotedMsg) {
-    await GetWbotMessage(ticket, quotedMsg.id);
-    quotedMsgSerializedId = SerializeWbotMsgId(ticket, quotedMsg);
+    const WbotMessageFound = await GetWbotMessage(ticket, quotedMsg.id);
+    quotedMsgSerializedId = WbotMessageFound.id._serialized;
   }
 
   const wbot = await GetTicketWbot(ticket);
