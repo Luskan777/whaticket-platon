@@ -9,31 +9,29 @@ import formatBody from "../../helpers/Mustache";
 interface Request {
   media: Express.Multer.File;
   ticket: Ticket;
+  caption: string;
   body?: string;
 }
 
 const SendWhatsAppMedia = async ({
   media,
   ticket,
-  body
+  caption,
 }: Request): Promise<WbotMessage> => {
   try {
     const wbot = await GetTicketWbot(ticket);
-    const hasBody = body
-      ? formatBody(body as string, ticket.contact)
-      : undefined;
 
     const newMedia = MessageMedia.fromFilePath(media.path);
     const sentMessage = await wbot.sendMessage(
       `${ticket.contact.number}@${ticket.isGroup ? "g" : "c"}.us`,
       newMedia,
       {
-        caption: hasBody,
+        caption: caption,
         sendAudioAsVoice: true
       }
     );
 
-    await ticket.update({ lastMessage: body || media.filename });
+    await ticket.update({ lastMessage: caption || media.filename });
 
     fs.unlinkSync(media.path);
 

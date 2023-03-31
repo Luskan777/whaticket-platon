@@ -15,7 +15,6 @@ import IconButton from "@material-ui/core/IconButton";
 import MoreVert from "@material-ui/icons/MoreVert";
 import MoodIcon from "@material-ui/icons/Mood";
 import SendIcon from "@material-ui/icons/Send";
-import CancelIcon from "@material-ui/icons/Cancel";
 import ClearIcon from "@material-ui/icons/Clear";
 import MicIcon from "@material-ui/icons/Mic";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
@@ -201,11 +200,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MessageInput = ({ ticketStatus }) => {
+const MessageInput = ({ ticketStatus, handleUploadMediaViewerOpen, MediaUploadMediaViewer }) => {
   const classes = useStyles();
   const { ticketId } = useParams();
 
   const [medias, setMedias] = useState([]);
+  const [ MediaCaption, setMediaCaption ] = useState()
   const [inputMessage, setInputMessage] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -219,6 +219,11 @@ const MessageInput = ({ ticketStatus }) => {
   const { user } = useContext(AuthContext);
 
   const [signMessage, setSignMessage] = useLocalStorage("signOption", true);
+
+
+  useEffect(() => {
+    handleUploadMediaViewerOpen(medias)
+  }, [medias])
 
   useEffect(() => {
     inputRef.current.focus();
@@ -258,6 +263,10 @@ const MessageInput = ({ ticketStatus }) => {
     setMedias(selectedMedias);
   };
 
+  const handleChangeCaption = (e) => {
+    setMediaCaption(e.target.value)
+  }
+
   const handleInputPaste = (e) => {
     if (e.clipboardData.files[0]) {
       setMedias([e.clipboardData.files[0]]);
@@ -274,6 +283,7 @@ const MessageInput = ({ ticketStatus }) => {
       formData.append("medias", media);
       formData.append("body", media.name);
     });
+    formData.append("caption", MediaCaption )
 
     try {
       await api.post(`/messages/${ticketId}`, formData);
@@ -385,6 +395,7 @@ const MessageInput = ({ ticketStatus }) => {
     setAnchorEl(null);
   };
 
+
   const renderReplyingMessage = (message) => {
     return (
       <div className={classes.replyginMsgWrapper}>
@@ -415,26 +426,41 @@ const MessageInput = ({ ticketStatus }) => {
     );
   };
 
-  if (medias.length > 0)
+  if (MediaUploadMediaViewer.length > 0)
     return (
       <Paper elevation={0} square className={classes.viewMediaInputWrapper}>
-        <IconButton
+        {/* <IconButton
           aria-label="cancel-upload"
           component="span"
-          onClick={(e) => setMedias([])}
         >
           <CancelIcon className={classes.sendMessageIcons} />
-        </IconButton>
-
+        </IconButton> */}
         {loading ? (
           <div>
             <CircularProgress className={classes.circleLoading} />
           </div>
         ) : (
-          <span>
-            {medias[0]?.name}
-            {/* <img src={media.preview} alt=""></img> */}
-          </span>
+            <InputBase
+              inputRef={(input) => {
+                input && input.focus();
+                input && (inputRef.current = input);
+              }}
+              className={classes.messageInput}
+              placeholder={i18n.t("messagesInput.placeholderUploadMedia")}
+              multiline
+              maxRows={5}
+              onChange={handleChangeCaption}
+              disabled={recording || loading || ticketStatus !== "open"}
+              onPaste={(e) => {
+                ticketStatus === "open" && handleInputPaste(e);
+              }}
+              onKeyPress={(e) => {
+                if (loading || e.shiftKey) return;
+                else if (e.key === "Enter") {
+                  handleUploadMedia();
+                }
+              }}
+            />
         )}
         <IconButton
           aria-label="send-upload"

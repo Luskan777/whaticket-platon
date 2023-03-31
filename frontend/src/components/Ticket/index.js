@@ -16,6 +16,7 @@ import MessagesList from "../MessagesList";
 import api from "../../services/api";
 import { ReplyMessageProvider } from "../../context/ReplyingMessage/ReplyingMessageContext";
 import toastError from "../../errors/toastError";
+import UploadMediaInput from "../TicketUploadMedia/index"
 
 const drawerWidth = 320;
 
@@ -82,6 +83,8 @@ const Ticket = () => {
   const [loading, setLoading] = useState(true);
   const [contact, setContact] = useState({});
   const [ticket, setTicket] = useState({});
+  const [ UploadMedia, setUploadMedia ] = useState([])
+  // const [ media, setMedia ] = useState([])
 
   useEffect(() => {
     setLoading(true);
@@ -143,6 +146,14 @@ const Ticket = () => {
     setDrawerOpen(false);
   };
 
+  const handleUploadMediaViewerOpen = (e) => {
+    setUploadMedia(e)
+  }
+
+  const handleUploadMediaViewerClose = (e) => {
+    setUploadMedia(e)
+  }
+
   return (
     <div className={classes.root} id="drawer-container">
       <Paper
@@ -165,11 +176,15 @@ const Ticket = () => {
           </div>
         </TicketHeader>
         <ReplyMessageProvider>
+          {UploadMedia.length > 0 ? (
+            <UploadMediaInput  handleUploadMediaViewerClose={handleUploadMediaViewerClose} media={UploadMedia} />
+          ) : (
           <MessagesList
             ticketId={ticketId}
             isGroup={ticket.isGroup}
           ></MessagesList>
-          <MessageInput ticketStatus={ticket.status} />
+          )}
+          <MessageInput ticketStatus={ticket.status}  MediaUploadMediaViewer={UploadMedia}  handleUploadMediaViewerOpen={handleUploadMediaViewerOpen}/>
         </ReplyMessageProvider>
       </Paper>
       <ContactDrawer

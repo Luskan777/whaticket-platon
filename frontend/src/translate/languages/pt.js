@@ -389,6 +389,7 @@ const messages = {
       },
       messagesInput: {
         placeholderOpen: "Digite uma mensagem ou tecle ''/'' para utilizar as respostas rápidas cadastrada",
+        placeholderUploadMedia: "Digite uma mensagem",
         placeholderClosed:
           "Reabra ou aceite esse ticket para enviar uma mensagem.",
         signMessage: "Assinar",
