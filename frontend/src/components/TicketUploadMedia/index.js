@@ -68,7 +68,7 @@ const UploadMediaInput = ({handleUploadMediaViewerClose, media}) => {
             </div>
             <div className={classes.viewMediaInputPreview} >
                     { preview && ImageCheckFile(media[0].type) ? (
-                        <img className={classes.ImagePreview}  src={preview} />
+                        <img alt="Preview"  className={classes.ImagePreview}  src={preview} />
                     ) : (
                         <InsertDriveFile className={classes.Icons}  fontSize="large"  />
                     )  }
