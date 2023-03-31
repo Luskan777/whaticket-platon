@@ -9,7 +9,7 @@ import formatBody from "../../helpers/Mustache";
 interface Request {
   media: Express.Multer.File;
   ticket: Ticket;
-  caption: string;
+  caption?: string;
   body?: string;
 }
 
@@ -17,6 +17,7 @@ const SendWhatsAppMedia = async ({
   media,
   ticket,
   caption,
+  body
 }: Request): Promise<WbotMessage> => {
   try {
     const wbot = await GetTicketWbot(ticket);
