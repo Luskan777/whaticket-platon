@@ -289,6 +289,7 @@ const MessageInput = ({ ticketStatus, handleUploadMediaViewerOpen, MediaUploadMe
 
     setLoading(false);
     setMedias([]);
+    setMediaCaption('')
   };
 
   const handleSendMessage = async () => {
