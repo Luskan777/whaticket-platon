@@ -13,6 +13,11 @@ interface Request {
   body?: string;
 }
 
+interface SendMessageOptions {
+  sendAudioAsVoice: boolean,
+  caption?: string
+}
+
 const SendWhatsAppMedia = async ({
   media,
   ticket,
@@ -22,14 +27,16 @@ const SendWhatsAppMedia = async ({
   try {
     const wbot = await GetTicketWbot(ticket);
 
+
+    let SendMessageOptions : SendMessageOptions = { sendAudioAsVoice: true }
+    caption !== 'undefined' && (SendMessageOptions.caption = caption), SendMessageOptions;
+
+
     const newMedia = MessageMedia.fromFilePath(media.path);
     const sentMessage = await wbot.sendMessage(
       `${ticket.contact.number}@${ticket.isGroup ? "g" : "c"}.us`,
       newMedia,
-      {
-        caption: caption,
-        sendAudioAsVoice: true
-      }
+      SendMessageOptions
     );
 
     await ticket.update({ lastMessage: caption || media.filename });
