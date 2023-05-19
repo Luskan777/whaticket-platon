@@ -86,8 +86,6 @@ const useStyles = makeStyles((theme) => ({
 
   viewMediaInputWrapper: {
     display: "flex",
-    padding: "10px 13px",
-    position: "relative",
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#eee",
@@ -275,8 +273,6 @@ const MessageInput = ({ ticketStatus, handleUploadMediaViewerOpen, MediaUploadMe
 
   const handleUploadMedia = async (e) => {
     setLoading(true);
-    e.preventDefault();
-
     const formData = new FormData();
     formData.append("fromMe", true);
     medias.forEach((media) => {
