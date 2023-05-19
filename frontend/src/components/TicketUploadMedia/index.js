@@ -11,23 +11,31 @@ const useStyles = makeStyles((theme) => ({
         height: "100vh",
         flexDirection: "column",
         backgroundColor: "#eee",
+        position: 'relative'
       },
     viewMediaInputHeader: {
         display: "flex",
+        backgroundColor: "#eee",
         width: "100%"
     },
     viewMediaInputPreview: {
         display: "flex",
         flex: 1,
+        maxWidth: '100%',
+        maxHeight: "100%",
+        overflow: 'hidden',
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "#eee",
     },
-    ImagePreview: {   
-        maxHeight: "40%",
-        maxWidth: "65%",
-        // minHeight: "10%",
-        // minWidth: "10%",
-        
+    ImagePreview: {
+        width: 'auto',
+        height: 'auto',
+        maxWidth: '300px',  
+        maxHeight: "300px",
+        backgroundColor: "#eee",
+        margin: "auto",
+        display: "block",  
     },
     Icons: {
         color: "gray",
@@ -60,20 +68,21 @@ const UploadMediaInput = ({handleUploadMediaViewerClose, media}) => {
     }
     
     return(
-        <Paper elevation={3} square className={classes.viewMediaInput}>
-            <div className={classes.viewMediaInputHeader} >
-                <IconButton onClick={() => handleUploadMediaViewerClose([])}>
-                    <CancelIcon/>
-                </IconButton>
-            </div>
-            <div className={classes.viewMediaInputPreview} >
-                    { preview && ImageCheckFile(media[0].type) ? (
-                        <img alt="Preview"  className={classes.ImagePreview}  src={preview} />
-                    ) : (
-                        <InsertDriveFile className={classes.Icons}  fontSize="large"  />
-                    )  }
-            </div>
-        </Paper>
+        <>
+        <div className={classes.viewMediaInputHeader} >
+            <IconButton onClick={() => handleUploadMediaViewerClose([])}>
+                <CancelIcon/>
+            </IconButton>
+        </div>
+        <div className={classes.viewMediaInputPreview} >
+                { preview && ImageCheckFile(media[0].type) ? (
+                    <img alt="Preview"  className={classes.ImagePreview}  src={preview} />
+                ) : (
+                    <InsertDriveFile className={classes.Icons}  fontSize="large"  />
+                )  }
+        </div>
+        </>
+
     )
 }
 
