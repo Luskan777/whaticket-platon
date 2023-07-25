@@ -93,6 +93,7 @@ const messages = {
           },
         },
         table: {
+          id: "ID",
           name: "Nombre",
           status: "Estado",
           lastUpdate: "Última Actualización",
