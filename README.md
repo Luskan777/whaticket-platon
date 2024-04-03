@@ -5,7 +5,7 @@
 [![Discord Chat](https://img.shields.io/discord/784109818247774249.svg?logo=discord)](https://discord.gg/Dp2tTZRYHg)
 [![Forum](https://img.shields.io/badge/forum-online-blue.svg?logo=discourse)](https://whaticket.online/)
 
-# WhaTicket
+# WhaTicket!
 
 **NOTE**: The new version of whatsapp-web.js required Node 14. Upgrade your installations to keep using it.
 
@@ -462,10 +462,10 @@ To generate the certificate files use `certbot` which can be installed using sna
 Note: The frontend container that runs nginx is already prepared to receive the request made by certboot to validate the certificate.
 
 ```bash
-# FRONTEND
+# BACKEND
 certbot certonly --cert-name backend --webroot --webroot-path ./ssl/www/ -d api.mydomain.com
 
-# BACKEND
+# FRONTEND
 certbot certonly --cert-name frontend --webroot --webroot-path ./ssl/www/ -d myapp.mydomain.com
 ```
 
