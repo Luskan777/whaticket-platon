@@ -108,7 +108,7 @@ export const initWbot = async (whatsapp: Whatsapp): Promise<Session> => {
         reject(new Error("Error starting whatsapp session."));
       });
 
-      wbot.on("DISCONNECTED", async msg => {
+      wbot.on("disconnected", async msg => {
         console.error(`Session: ${sessionName} DISCONNECTED! Reason: ${msg}`);
       });
 
