@@ -76,7 +76,7 @@ const Login = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <LogoSvg className={classes.avatar} />
+        {/* <LogoSvg className={classes.avatar} /> */}
         {/* <Avatar className={classes.avatar}>
           <LockOutlined />
         </Avatar> */}
