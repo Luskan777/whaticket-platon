@@ -18,7 +18,6 @@ export const StartWhatsAppSession = async (
 
   try {
     const wbot = await initWbot(whatsapp);
-    console.log('wbotId: ', wbot.id)
     wbotMessageListener(wbot);
     wbotMonitor(wbot, whatsapp);
   } catch (err) {
