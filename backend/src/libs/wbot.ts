@@ -48,7 +48,7 @@ export const initWbot = async (whatsapp: Whatsapp): Promise<Session> => {
       const wbot: Session = new Client({
         session: sessionCfg,
         // Solve the web version problem (Temporary solution)
-        webVersion: "2.2409.2",
+        webVersion: "2.2412.54",
         webVersionCache: {
           type: 'remote',
           remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html',
