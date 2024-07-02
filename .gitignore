@@ -5,4 +5,6 @@ ssl/
 .DS_Store
 backend/.DS_Store
 **/.DS_Store
-.node_modules/
+# ignore .node_modules
+node_modules/
+
