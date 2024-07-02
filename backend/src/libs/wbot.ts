@@ -48,11 +48,12 @@ export const initWbot = async (whatsapp: Whatsapp): Promise<Session> => {
       const wbot: Session = new Client({
         session: sessionCfg,
         // Solve the web version problem (Temporary solution)
-        webVersion: "2.3000.1014610951-alpha",
+        webVersion: process.env.WEB_VERSION || "2.2409.2",
         webVersionCache: {
           type: 'remote',
-          remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.3000.1014610951-alpha.html',
+          remotePath: "https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/{version}.html"
         },
+        qrMaxRetries: 5,
         authStrategy: new LocalAuth({clientId: 'bd_'+whatsapp.id}),
         puppeteer: {
           executablePath: process.env.CHROME_BIN || undefined,

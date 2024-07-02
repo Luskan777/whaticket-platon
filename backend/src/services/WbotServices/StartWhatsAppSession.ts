@@ -18,6 +18,8 @@ export const StartWhatsAppSession = async (
 
   try {
     const wbot = await initWbot(whatsapp);
+    let WWebVersion = await wbot.getWWebVersion()
+    console.log(`WWebVersion: ${WWebVersion}`)
     wbotMessageListener(wbot);
     wbotMonitor(wbot, whatsapp);
   } catch (err) {
