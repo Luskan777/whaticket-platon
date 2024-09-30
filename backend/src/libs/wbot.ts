@@ -53,7 +53,7 @@ export const initWbot = async (whatsapp: Whatsapp): Promise<Session> => {
           type: 'remote',
           remotePath: "https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/{version}.html"
         },
-        qrMaxRetries: 5,
+        qrMaxRetries: 10,
         authStrategy: new LocalAuth({clientId: 'bd_'+whatsapp.id}),
         puppeteer: {
           executablePath: process.env.CHROME_BIN || undefined,
